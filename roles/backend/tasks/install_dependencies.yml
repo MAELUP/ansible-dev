@@ -1,0 +1,93 @@
+---
+- name: Disable SELinux
+  selinux:
+    state: disabled
+
+- name: Add Node.js repository script
+  get_url:
+   url:  https://rpm.nodesource.com/setup_14.x
+   dest: /opt
+   mode: 755
+- name: Setup Node.js repository
+  command: /opt/setup_14.x
+
+- name: Add Nginx Unit repository
+  yum_repository:
+    name: unit repo
+    description: Nginx Unit repo
+    baseurl: https://packages.nginx.org/unit/centos/$releasever/$basearch/
+    gpgcheck: no
+    enabled: yes
+
+- name: Install packages
+  yum: 
+   name: 
+    - "@Development tools"
+    - nodejs
+    - unit
+    - unit-devel
+    - git
+   state: present 
+
+- name: upgrade all packages
+  yum:
+   name: '*'
+   state: latest
+
+- name: create work directory
+  file:
+   path: /var/www
+   state: directory
+   mode: '0755'
+
+- name: clone Backend
+  git:
+   repo: https://github.com/MAELUP/backend-dev.git
+   dest: /var/www
+
+- name: Start service unit
+  service:
+   name: unit
+   state: started
+   enabled: yes
+
+- name: Install "unit-http" node.js package.
+  npm:
+   name: unit-http
+   path: /var/www/
+   unsafe_perm: yes
+   global: yes
+
+- name: Change the working directory before executing the command.
+  shell: npm link unit-http
+  args:
+   chdir: /var/www/
+
+- name: PUT Config Unit Application
+  shell: curl -X PUT --data-binary @config.json --unix-socket /var/run/unit/control.sock http://localhost/config
+  args:
+   chdir: /var/www/
+
+# - name: PUT Config Unit Application
+#   uri:
+#    url: http://localhost/config
+#    method: PUT
+#    body: "{{ lookup('file','config.json') }}"
+#    body_format: json
+#    unix_socket: /var/run/unit/control.sock
+#    validate_certs: no
+
+- name: open service port_8081
+  firewalld:
+   port: 8081/tcp
+   permanent: yes
+   state: enabled
+   immediate: yes
+
+- name: open service port_8080
+  firewalld:
+   port: 8080/tcp
+   permanent: yes
+   state: enabled
+   immediate: yes
+

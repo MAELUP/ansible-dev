@@ -1,0 +1,11 @@
+[loadbalance]
+loadbalance.service
+
+[apigateway]
+apigateway.service.master
+apigateway.service.backup
+
+[backend]
+backend.service.first
+backend.service.second
+
