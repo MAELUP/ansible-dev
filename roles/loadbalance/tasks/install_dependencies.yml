@@ -18,16 +18,8 @@
     - "@Development tools"
     - git
     - nginx-plus 
-    - python-pip
-   state: present
-    
-- name: Install python library 
-  pip: 
-   name: 
-    - pyOpenSSL
-    - acme-tiny
    state: latest
-
+    
 - name: upgrade all packages
   yum:
    name: '*'
@@ -49,60 +41,10 @@
    repo: https://github.com/MAELUP/loadbalance-dev.git
    dest: /etc/nginx
     
-- name: Change file ownership, group and permissions
-  file:
-   path: /etc/nginx
-   owner: nginx
-   group: nginx
-   mode: '0755' 
-
-- name: create private directory
-  file: 
-   path: /etc/ssl/private
-   state: directory
-   mode: 0755
-  
-- name: create csr directory
-  file:
-   path: /etc/ssl/csr
-   state: directory
-   mode: 0755
-  
-- name: create certificate directory
-  file: 
-   path: /etc/ssl/certs
-   state: directory
-   mode: 0755  
-   
-- name: create privatekey 
-  openssl_privatekey:
-   path: /etc/ssl/private/loadbalance.service.key;
-   size: 2048
- 
-- name: create csr
-  openssl_csr:
-   path: /etc/ssl/csr/loadbalance.service.csr;
-   privatekey_path: /etc/ssl/private/loadbalance.service.key;
-
-- name: create certificate
-  openssl_certificate:
-   path: /etc/ssl/certs/loadbalance.service.crt;
-   privatekey_path: /etc/ssl/private/loadbalance.service.key; 
-   csr_path: /etc/ssl/csr/loadbalance.service.csr;
-   selfsigned_not_after: +365d
-   provider: selfsigned
-
-- name: mod permistion directory
-  file:
-   path: /etc/ssl/
-   state: directory
-   recurse: yes
-   mode: 0755
-
 - name: restart nginx
   service:
    name:  nginx
-    state: restarted
+   state: restarted
 
 - name: open service port_80
   firewalld:
