@@ -1,0 +1,24 @@
+---
+- hosts: apigateway 
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+   - apigateway
+  
+- hosts: loadbalance
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo 
+  roles:
+   - backend
+
+- hosts: backend
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo 
+  roles:
+   - loadbalance

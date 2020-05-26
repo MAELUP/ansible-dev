@@ -1,0 +1,48 @@
+---
+- name: create work directory
+  file:
+   path: /var/www
+   state: directory
+   mode: '0755'
+
+- name: clone Backend
+  git:
+   repo: https://github.com/MAELUP/backend-dev.git
+   dest: /var/www
+
+- name: Start service unit
+  service:
+   name: unit
+   state: started
+   enabled: yes
+
+- name: Install "unit-http" node.js package.
+  npm:
+   name: unit-http
+   path: /var/www/
+   unsafe_perm: yes
+   global: yes
+
+- name: Change the working directory before executing the command.
+  shell: npm link unit-http
+  args:
+   chdir: /var/www/
+
+- name: PUT Config Unit Application
+  shell: curl -X PUT --data-binary @config.json --unix-socket /var/run/unit/control.sock http://localhost/config
+  args:
+   chdir: /var/www/
+
+- name: open service port_8081
+  firewalld:
+   port: 8081/tcp
+   permanent: yes
+   state: enabled
+   immediate: yes
+
+- name: open service port_8080
+  firewalld:
+   port: 8080/tcp
+   permanent: yes
+   state: enabled
+   immediate: yes
