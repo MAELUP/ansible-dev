@@ -1,4 +1,0 @@
----
-primary_node_ipadress: '{{ ansible_default_ipv4.address }}'
-second_node_ipaddress: '{{ ansible_default_ipv4.address }}'
-virtual_node_ipaddress: 

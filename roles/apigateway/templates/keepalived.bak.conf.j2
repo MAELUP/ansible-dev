@@ -22,9 +22,9 @@ vrrp_instance VI_1 {
         accept
         garp_master_refresh 5
         garp_master_refresh_repeat 1
-        unicast_src_ip {{ primary_node_ipadress  }}
+        unicast_src_ip {{ backup_node_ipaddress }}
         unicast_peer {
-                {{ second_node_ipaddress }}
+                {{ master_node_ipadress }}
         }
         virtual_ipaddress {
                 {{ virtual_node_ipaddress }}
