@@ -42,3 +42,8 @@
     state: present
     unsafe_writes: yes
   with_items: '{{ groups.all }}'
+
+- name: restart network 
+  service:
+   name: network
+   state: restarted
