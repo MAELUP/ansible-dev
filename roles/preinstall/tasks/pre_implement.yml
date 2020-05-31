@@ -2,7 +2,7 @@
 - name: Disable SELinux
   selinux:
    state: disabled
-
+     
 - name: Update /etc/hosts from inventory
   lineinfile:
    dest: /etc/hosts
@@ -17,14 +17,4 @@
    name: network
    state: restarted
 
-- name: open service port 
-  firewalld:
-   port: '{{ item.port }}'
-   permanent: yes
-   state: enabled
-   immediate: yes
-  with_items:
-   - { port: '80/tcp' }
-   - { port: '8080/tcp' }
-   - { port: '8081/tcp' }
 

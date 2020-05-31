@@ -25,3 +25,12 @@
    name: '*'
    state: latest
 
+- name: open service port 
+  firewalld:
+   port: '{{ item.port }}'
+   permanent: yes
+   state: enabled
+   immediate: yes
+  with_items:
+   - { port: '80/tcp' }
+

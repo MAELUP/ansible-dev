@@ -1,4 +1,2 @@
 ---
-- import_tasks: ./pre_backend.yml
-- import_tasks: ./pre_apigateway.yml
-- import_tasks: ./pre_loadbalance.yml
+- import_tasks: ./pre_implement.yml
