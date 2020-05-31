@@ -1,11 +1,11 @@
-[loadbalance]
+[loadbalance.service]
 loadbalance.service
 
-[apigateway]
+[apigateway.service]
 apigateway.service.master 
 apigateway.service.backup 
 
-[backend]
+[backend.service]
 backend.service.first
 backend.service.second
 
