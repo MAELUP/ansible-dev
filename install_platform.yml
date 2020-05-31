@@ -1,4 +1,12 @@
 ---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+   - preinstall
+
 - hosts: apigateway 
   gather_facts: yes
   become: yes
@@ -7,7 +15,7 @@
   roles:
    - apigateway
   
-- hosts: loadbalance
+- hosts: backend
   gather_facts: yes
   become: yes
   become_user: root
@@ -15,7 +23,7 @@
   roles:
    - backend
 
-- hosts: backend
+- hosts: loadbalance
   gather_facts: yes
   become: yes
   become_user: root

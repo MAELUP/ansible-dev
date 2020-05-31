@@ -25,16 +25,3 @@
    name: '*'
    state: latest
 
-- name: Update /etc/hosts from inventory
-  lineinfile:
-    dest: /etc/hosts
-    regexp: '.*{{item}}$'
-    line: '{{ hostvars[item].ansible_default_ipv4.address }}   {{ hostvars[item].ansible_hostname }}'
-    state: present
-    unsafe_writes: yes
-  with_items: '{{ groups.all }}'
-
-- name: restart network 
-  service:
-   name: network
-   state: restarted

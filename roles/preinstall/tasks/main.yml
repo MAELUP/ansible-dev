@@ -1,3 +1,4 @@
 ---
-- import_tasks: ./install_dependencies.yml
-- import_tasks: ./install_loadbalanceyml
+- import_tasks: ./pre_backend.yml
+- import_tasks: ./pre_apigateway.yml
+- import_tasks: ./pre_loadbalance.yml
