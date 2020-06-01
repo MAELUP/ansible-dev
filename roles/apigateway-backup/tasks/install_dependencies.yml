@@ -1,39 +1,31 @@
 ---
 - name: Disable SELinux
   selinux:
-    state: disabled
+   state: disabled
 
-- name: Add Node.js repository script
-  get_url:
-   url:  https://rpm.nodesource.com/setup_14.x
-   dest: /opt
-   mode: 755
-- name: Setup Node.js repository
-  command: /opt/setup_14.x
-
-- name: Add Nginx Unit repository
+- name: add nginx-plus repo
   yum_repository:
-    name: unit repo
-    description: Nginx Unit repo
-    baseurl: https://packages.nginx.org/unit/centos/$releasever/$basearch/
-    gpgcheck: no
-    enabled: yes
+   name: nginx-plus
+   description: nginx-plus repo
+   baseurl: http://10.4.150.213/nginx-rpms
+   gpgcheck: no
+   enabled: yes
 
 - name: Install packages
-  yum: 
-   name: 
+  yum:
+   name:
     - "@Development tools"
-    - nodejs
-    - unit
-    - unit-devel
     - git
-   state: present 
+    - nginx-plus
+    - nginx-plus-module-modsecurity
+    - nginx-ha-keepalived
+   state: present
 
 - name: upgrade all packages
   yum:
    name: '*'
    state: latest
-   
+
 - name: open service port 
   firewalld:
    port: '{{ item.port }}'
@@ -42,8 +34,6 @@
    immediate: yes
   with_items:
    - { port: '80/tcp' }
-   - { port: '8080/tcp' }
-   - { port: '8081/tcp' }
 
 - name: add virtual ip to /etc/hosts 
   lineinfile:

@@ -27,4 +27,18 @@
    name:  nginx
    state: restarted
 
+- name: Start keepalived
+  service: 
+   name: keepalived 
+   state: started
+   enabled: yes
 
+- name: Configurar configuració de keepalived
+  template: 
+   src: keepalived.bak.conf.j2 
+   dest: /etc/keepalived/keepalived.conf
+
+- name: restarted keepalived
+  service: 
+   name: keepalived 
+   state: restarted
