@@ -1,4 +1,0 @@
----
-- import_tasks: ./install_dependencies.yml
-- import_tasks: ./install_apigateway.yml
-- import_tasks: ./install_keepalived.yml
