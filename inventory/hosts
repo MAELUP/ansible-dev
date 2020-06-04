@@ -8,8 +8,8 @@ apigateway.bak.service
 loadbalance.service
 
 [backend]
-backend-service
-backend-service2
+backend.service
+backend.service2
 
 [apigateway:children]
 apigateway-master 
