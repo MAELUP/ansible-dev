@@ -27,12 +27,6 @@
    name:  nginx
    state: restarted
 
-- name: Start keepalived
-  service: 
-   name: keepalived 
-   state: started
-   enabled: yes
-
 - name: add keepalived.conf (Master)
   template: 
    src: ../templates/keepalived.mas.conf.j2 
@@ -45,8 +39,9 @@
    dest: /etc/keepalived/keepalived.conf
   when: inventory_hostname in groups['apigateway-backup']
 
-- name: restarted keepalived
+- name: Start keepalived
   service: 
    name: keepalived 
-   state: restarted
+   state: started
+   enabled: yes
 
