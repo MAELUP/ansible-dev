@@ -13,7 +13,7 @@
 
 - name: Add Nginx Unit repository
   yum_repository:
-    name: unit repo
+    name: unit
     description: Nginx Unit repo
     baseurl: https://packages.nginx.org/unit/centos/$releasever/$basearch/
     gpgcheck: no
