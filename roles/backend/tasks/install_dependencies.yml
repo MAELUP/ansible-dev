@@ -19,10 +19,19 @@
     gpgcheck: no
     enabled: yes
 
+- name: add nginx-plus repo
+  yum_repository:
+   name: nginx-plus
+   description: nginx-plus repo
+   baseurl: http://10.4.150.213/nginx-rpms
+   gpgcheck: no
+   enabled: yes
+
 - name: Install packages
   yum: 
    name: 
     - "@Development tools"
+    - nginx-plus
     - nodejs
     - unit
     - unit-devel
