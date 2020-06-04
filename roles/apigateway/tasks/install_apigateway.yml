@@ -33,7 +33,7 @@
    dest: /etc/keepalived/keepalived.conf
   when: inventory_hostname in groups['apigateway-master']
 
-- name: add keepalived.conf (Master)
+- name: add keepalived.conf (Backup)
   template: 
    src: ../templates/keepalived.bak.conf.j2 
    dest: /etc/keepalived/keepalived.conf
