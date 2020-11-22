@@ -1,5 +1,7 @@
-"# ansible-dev" 
+# platform สำหรับ implement all in one apigateway + microservice + loadbalance + web application firewall
+
 # ansible-dev
+- ใช้ได้เฉพาะ nginx-plus เท่านั้น เพราะบาง feature ไม่รองรับบน nginx version ปกติ
 
 - ก่อนการใช้งานต้องระบุชื่อ hosts ปลายทางที่ inventory ให้ถูกต้อง
 
