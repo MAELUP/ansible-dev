@@ -7,3 +7,5 @@
 
 - ระบุ ip address ของ virtual ip, apigateway master node ip, และ apigateway backup node ip ด้วย
 
+- ภายใน platform ติดต่อกันด้วย hostname จึงต้อง map ip กับ hostname ให้ตรงกัน โดยดูอ้างอิงจากไฟล์ inventory
+
